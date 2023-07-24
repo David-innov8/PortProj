@@ -44,6 +44,7 @@ const ProductsOfTheWeek = () => {
                 className="absolute inset-0 w-full h-full object-cover"
                 src={list.url}
                 alt={list.name}
+                loading="lazy"
               />
             </div>
 

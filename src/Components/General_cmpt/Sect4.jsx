@@ -2,6 +2,7 @@ import React from "react";
 import ImgPk from "../Assets/Rectangle 11.svg";
 import ImgPk2 from "../Assets/Rectangle 13.svg";
 import ImgPk3 from "../Assets/Rectangle 15.svg";
+import ViewMore from "../Common/ViewMore";
 // import Button from './Button'
 
 // const myText = (
@@ -19,14 +20,6 @@ import ImgPk3 from "../Assets/Rectangle 15.svg";
 //   </div>
 // );
 
-// const ViewMore = (
-//   <div className="flex justify-center w-28 border  ">
-//     <button className="text-black text-xs hover:bg-gray-200 w-full hover:text-black hover:opacity-60 py-2">
-//       {" "}
-//       View more {" >"}{" "}
-//     </button>
-//   </div>
-// );
 const Sect4 = () => {
   return (
     <div className="py-16 ">
@@ -41,10 +34,7 @@ const Sect4 = () => {
           </p>
 
           <div className="flex justify-center w-28 border  ">
-            <button className="text-black text-xs hover:bg-gray-200 w-full hover:text-black hover:opacity-60 py-2">
-              {" "}
-              View more {" >"}{" "}
-            </button>
+            <ViewMore />
           </div>
         </div>
 
@@ -76,10 +66,7 @@ const Sect4 = () => {
           </p>
 
           <div className="flex justify-center w-28 border ">
-            <button className="text-black text-xs hover:bg-gray-200 w-full hover:text-black hover:opacity-60 py-2">
-              {" "}
-              View more {" >"}{" "}
-            </button>{" "}
+            <ViewMore />
           </div>
         </div>
       </div>
@@ -97,10 +84,7 @@ const Sect4 = () => {
           </p>
 
           <div className="flex justify-center w-28 border ">
-            <button className="text-black text-xs hover:bg-gray-200 w-full hover:text-black hover:opacity-60 py-2">
-              {" "}
-              View more {" >"}{" "}
-            </button>
+            <ViewMore />
           </div>
         </div>
 

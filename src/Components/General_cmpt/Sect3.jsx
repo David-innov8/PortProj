@@ -1,6 +1,7 @@
 import React from "react";
 import Bck1 from "../Assets/Rectangle-8.png";
 import Bck2 from "../Assets/Rectangle-10.png";
+import ViewMore from "../Common/ViewMore";
 // import Bck3 from '../Assets/Vector.png'
 
 // import Elipse from '../Assets/Elipse.jpg'
@@ -21,10 +22,7 @@ const Sect3 = () => {
 
           <div className="flex justify-center py-2">
             <div className="flex justify-center w-28 border ">
-              <button className="text-white text-xs hover:bg-gray-200 w-full hover:text-black hover:opacity-60 py-2">
-                {" "}
-                View more {" >"}{" "}
-              </button>
+              <ViewMore  />
             </div>
           </div>
         </div>
