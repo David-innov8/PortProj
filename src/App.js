@@ -1,13 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LandingPage from "./routes/LandingPage";
+import Routing from "./routes/Routing";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-      </Routes>
+      <div>
+        <Routing />
+      </div>
     </Router>
   );
 }
