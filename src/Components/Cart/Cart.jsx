@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Common/Navbar";
 import Img from "../Assets/Rectangle 20.svg";
+import { useParams } from "react-router-dom";
+import StarRatings from "react-star-ratings";
+import axios from "axios";
 function Cart() {
   const [count, setCount] = useState(0);
 
@@ -14,6 +17,37 @@ function Cart() {
     console.log(count);
   };
 
+  const { id } = useParams();
+
+  const [pdrt, setPrdt] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`https://api.escuelajs.co/api/v1/products/${id}`)
+      .then((res) => {
+        setPrdt(res.data);
+        setLoading(false);
+        console.log("product loaded", res.data);
+      })
+
+      .catch((err) => {
+        console.error(`error petching products`, err);
+        setLoading(false);
+      });
+  }, [id]);
+
+  // .then((res) => {
+  //   setProduct(res.data);
+  //   setLoading(false);
+  //   console.log(("product loaded", res.data));
+  // })
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // if (!pdrt) {
+  //   return <div>Does not exist</div>;
+  // }
   return (
     <section className="  h-80h">
       <Navbar />
@@ -48,15 +82,20 @@ function Cart() {
         </div>
 
         <div className="right">
-          <h1>Sofa code 123</h1>
-          <p>Rating</p>
+          <h1>{pdrt.title}</h1>
+          <StarRatings
+            rating={pdrt.rating}
+            starRatedColor="grey"
+            starEmptyColor="grey"
+            starDimension="20px"
+            starSpacing="2px"
+          />
           <p>
-            <span>200$</span> 100$
+            <span>{pdrt.price + 100}$</span>
+            {pdrt.price}
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim et
-            volutpat lobortis enim donec adipiscing nibh. Consectetur in ac
-            elementum aliquam imperdiet tellus.
+            {pdrt.description}
           </p>
 
           <div className="btn flex  w-96 justify-between">
@@ -82,6 +121,12 @@ function Cart() {
           <p>Sku: 02</p>
           <p>Category: sofa</p>
           <p>tag: sofa clean</p>
+
+          {/* <nav>
+                <Link to="../description">Description</Link>
+                <Link to="../additional">Additional Details</Link>
+
+          </nav> */}
         </div>
       </div>
     </section>
