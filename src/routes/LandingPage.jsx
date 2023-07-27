@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../Components/Common/Footer";
 import Navbar from "../Components/Common/Navbar";
+import Search from "../Components/Common/Search";
 import ApiTest from "../Components/General_cmpt/ApiTest";
 import Home from "../Components/General_cmpt/Home";
 import MidFooter from "../Components/General_cmpt/MidFooter";
@@ -15,7 +16,7 @@ function LandingPage() {
   return (
     <div>
       <Home />
-
+      <Search/>
       <ProductsOfTheWeek />
       <Sect3 />
       <Sect4 />

@@ -81,52 +81,55 @@ function Cart() {
           </div>
         </div>
 
-        <div className="right">
-          <h1>{pdrt.title}</h1>
-          <StarRatings
-            rating={pdrt.rating}
-            starRatedColor="grey"
-            starEmptyColor="grey"
-            starDimension="20px"
-            starSpacing="2px"
-          />
-          <p>
-            <span>{pdrt.price + 100}$</span>
-            {pdrt.price}
-          </p>
-          <p>
-            {pdrt.description}
-          </p>
-
-          <div className="btn flex  w-96 justify-between">
-            <div className=" ` border-black border w-40 h-14 flex px-2 justify-between items-center">
-              <span className="cursor-pointer text-4xl" onClick={Decrease}>
-                {"<"}
+        <div className="right w-1/2 bg-orange-500 ">
+          <div className="bg-green-300 ">
+            <h1 className="mb-1">{pdrt.title}</h1>
+            <StarRatings
+              rating={pdrt.rating}
+              starRatedColor="grey"
+              starEmptyColor="grey"
+              starDimension="20px"
+              starSpacing="2px"
+            />
+            <div className="flex items-center my-1">
+              <span className="line-through text-base  mr-3">
+                {pdrt.price + 100}$
               </span>
-              {count}
-              <span className="cursor-pointer text-4xl" onClick={Increase}>
-                {">"}
-              </span>
+              <p className="text-lg font-bold">{pdrt.price}</p>
             </div>
 
-            <div className="atc bg-[#393939] w-40 h-14 flex justify-center items-center text-white">
-              <button>Add To Cart</button>
+            <p className="w-96 ">{pdrt.description}</p>
+
+            <div className="btn flex my-1 w-96 justify-between">
+              <div className=" ` border-black border w-40 h-14 flex px-2 justify-between items-center">
+                <span className="cursor-pointer text-4xl" onClick={Decrease}>
+                  {"<"}
+                </span>
+                {count}
+                <span className="cursor-pointer text-4xl" onClick={Increase}>
+                  {">"}
+                </span>
+              </div>
+
+              <div className="atc bg-[#393939] w-40 h-14 flex justify-center items-center text-white">
+                <button>Add To Cart</button>
+              </div>
             </div>
-          </div>
 
-          <div className="flex ">
-            <p className="mr-8">h</p> <p>Add To wishlsi</p>
-          </div>
+            <div className="flex ">
+              <p className="mr-8">h</p> <p>Add To wishlsi</p>
+            </div>
 
-          <p>Sku: 02</p>
-          <p>Category: sofa</p>
-          <p>tag: sofa clean</p>
+            <p>Sku: 02</p>
+            <p>Category: {pdrt.category.name}</p>
+            <p>tag: sofa clean</p>
 
-          {/* <nav>
+            {/* <nav>
                 <Link to="../description">Description</Link>
                 <Link to="../additional">Additional Details</Link>
 
           </nav> */}
+          </div>
         </div>
       </div>
     </section>
