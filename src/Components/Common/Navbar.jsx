@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -6,6 +6,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Search from "./Search";
 
 function Ull (props){
   return(
@@ -22,6 +23,17 @@ function Ull (props){
 
 
 function Navbar() {
+
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleSearchClick = () => {
+    setShowSearch(true);
+  };
+
+  const handleCloseClick = () => {
+    setShowSearch(false);
+  };
+
   return (
     <nav className="flex justify-between px-10 py-4 items-center mx-auto bg-transparent">
       <div className="flex items-center ">
@@ -38,7 +50,7 @@ function Navbar() {
         </ul>
       </div>
       <div className="cursor-pointer">
-        <FontAwesomeIcon icon={faSearch} className="mr-5" />
+        <Search/>
         <FontAwesomeIcon icon={faBagShopping} className="mr-5" />
         <FontAwesomeIcon icon={faBars} className="mr-5" />
       </div>

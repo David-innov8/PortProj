@@ -16,7 +16,7 @@ function LandingPage() {
   return (
     <div>
       <Home />
-      <Search/>
+      
       <ProductsOfTheWeek />
       <Sect3 />
       <Sect4 />
