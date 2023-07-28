@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +10,14 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [product, setProduct] = useState([]);
 
+
+  const inputRef = useRef(null);
+
+  
+
+  const handleSearchIconClick = () => {
+    inputRef.current.focus();
+  };
   // since the api doesnt have a search query, ill filter throught the api product all at once
 
   //get data
@@ -45,23 +53,24 @@ function Search() {
   };
 
   return (
-    <div className="flex items-center border rounded p-2">
+    <div className="flex flex-col items-center border rounded p-2">
       <div className = "mr-2">
       <FontAwesomeIcon icon={faSearch} className="mr-5" />
     </div>
       <input
+      ref={inputRef}
         type="text"
         value={searchQuery}
         onChange={handleInputChange}
         placeholder="enter product name"
-        className="focus:outline-none"
+        className="bg-transparent h-full text-xl w-full ml-1 focus:outline-none"
       />
 
       
-
+      <div  className=" w-full bg-white flex flex-col shadow-md border-2 mt-4 max-h max-h-48 overflow-scroll">
       {searchResult.length > 0 ? (
         searchResult.map((e) => (
-          <Link key={e.id} to={`/cart/${e.id}`}>
+          <Link  key={e.id} to={`/cart/${e.id}`}>
             <div>
               <h2>{e.title}</h2>
               <p>{e.desciption}</p>
@@ -71,6 +80,7 @@ function Search() {
       ) : (
         <p>No Products found</p>
       )}
+    </div>
     </div>
   );
 }
