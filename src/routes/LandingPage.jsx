@@ -17,7 +17,7 @@ function LandingPage() {
   return (
     <div>
       <Home />
-      
+
       <ProductsOfTheWeek />
       <Sect3 />
       <Sect4 />
@@ -26,7 +26,7 @@ function LandingPage() {
       <Sect5 />
       <Testimonials />
       {/* <ApiTest/> */}
-      <Serach2/>
+
       <Footer />
     </div>
   );
