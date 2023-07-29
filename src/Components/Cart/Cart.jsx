@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Common/Navbar";
 import Img from "../Assets/Rectangle 20.svg";
-import { useParams } from "react-router-dom";
+import { Link, useParams, Outlet } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
+import RelatedPrdt from "./RelatedPrdt";
+
 function Cart() {
   const [count, setCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const Decrease = () => {
     setCount(count - 1);
@@ -15,6 +20,11 @@ function Cart() {
   const Increase = () => {
     setCount(count + 1);
     console.log(count);
+  };
+
+  // Click event handler to toggle the heart's color
+  const handleClick = () => {
+    setIsLiked(!isLiked);
   };
 
   const { id } = useParams();
@@ -31,7 +41,7 @@ function Cart() {
       })
 
       .catch((err) => {
-        console.error(`error petching products`, err);
+        // console.error(`error petching products`, err);
         setLoading(false);
       });
   }, [id]);
@@ -49,41 +59,38 @@ function Cart() {
   //   return <div>Does not exist</div>;
   // }
   return (
-    <section className="  h-80h">
+    <section className=" ">
       <Navbar />
 
-      <div className=" px-9 flex-1 flex h-80v w-full ">
+      <div className=" px-9 flex-1 flex h-100v w-full text-[#978E8E]">
         <div className="left h-full flex w-1/2">
-          <div className="w-1/3  grid  grid-rows-4 gap-y-4">
-            <div className="aspect-w-1 aspect-h-1">
-              <img src={Img} alt="" className="object-contain  w-full h-full" />
+          <div className="w-1/3 h-full flex flex-col justify-between ">
+           
+            {
+              pdrt.images.map((e,index)=>(
+                <div className=" aspect-h-1">
+              <img key={index} src={e} alt="" className="object-contain  w-full h-full" />
             </div>
+              ))
+            }
 
-            <div className="aspect-w-1 aspect-h-1">
-              <img src={Img} alt="" className="object-contain  w-full h-full" />
-            </div>
-
-            <div className="aspect-w-1 aspect-h-1">
-              <img src={Img} alt="" className="object-contain w-full h-full" />
-            </div>
-
-            <div className="aspect-w-1 aspect-h-1">
-              <img src={Img} alt="" className="object-contain  w-full h-full" />
-            </div>
           </div>
 
-          <div className=" ">
+          <div className=" ml-2">
             <img
               class="object-cover object-bottom object-right px-3 w-full h-full"
-              src={Img}
+              src={pdrt.category.image}
               alt=""
             />
           </div>
+        
         </div>
 
-        <div className="right w-1/2 bg-orange-500 ">
-          <div className="bg-green-300 ">
-            <h1 className="mb-1">{pdrt.title}</h1>
+        <div className="right w-1/2 px-2 ">
+          <div className=" ">
+            <h1 className="mb-4 text-3xl font-bold font-sans text-black">
+              {pdrt.title}
+            </h1>
             <StarRatings
               rating={pdrt.rating}
               starRatedColor="grey"
@@ -91,16 +98,16 @@ function Cart() {
               starDimension="20px"
               starSpacing="2px"
             />
-            <div className="flex items-center my-1">
+            <div className="flex items-center my-4 text-black">
               <span className="line-through text-base  mr-3">
                 {pdrt.price + 100}$
               </span>
               <p className="text-lg font-bold">{pdrt.price}</p>
             </div>
 
-            <p className="w-96 ">{pdrt.description}</p>
+            <p className="w-96 text-lg font-normal ">{pdrt.description}</p>
 
-            <div className="btn flex my-1 w-96 justify-between">
+            <div className="btn flex my-6 w-96 justify-between">
               <div className=" ` border-black border w-40 h-14 flex px-2 justify-between items-center">
                 <span className="cursor-pointer text-4xl" onClick={Decrease}>
                   {"<"}
@@ -116,22 +123,30 @@ function Cart() {
               </div>
             </div>
 
-            <div className="flex ">
-              <p className="mr-8">h</p> <p>Add To wishlsi</p>
+            <div className="flex items-center">
+              <FontAwesomeIcon
+                onClick={handleClick}
+                style={{ color: isLiked ? "red" : "gray", fontSize: "24px" }}
+                icon={faHeart}
+              />
+              <span className=" ml-5 text-lg font-normal">Add to wishlist</span>
             </div>
 
-            <p>Sku: 02</p>
+            <p className="my-2">Sku: 02</p>
             <p>Category: {pdrt.category.name}</p>
-            <p>tag: sofa clean</p>
+            <p className="my-2 ">tag: sofa clean</p>
 
-            {/* <nav>
-                <Link to="../description">Description</Link>
-                <Link to="../additional">Additional Details</Link>
-
-          </nav> */}
+            <nav className="w-full  flex px-7 justify-between text-xl text-black font-normal">
+              <Link to="description">Description</Link>
+              <Link to="additional">Additional Details</Link>
+              <Link to="additional">Preview</Link>
+            </nav>
+            <Outlet />
           </div>
         </div>
       </div>
+
+      {/* <RelatedPrdt /> */}
     </section>
   );
 }

@@ -2,22 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 function Search() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [product, setProduct] = useState([]);
-
-
+  const [isExpanded , setIsExpanded] = useState(false)
   const inputRef = useRef(null);
 
-  
 
-  const handleSearchIconClick = () => {
-    inputRef.current.focus();
-  };
+
+  // const handleSearchIconClick = () => {
+  //   inputRef.current.focus();
+  // };
   // since the api doesnt have a search query, ill filter throught the api product all at once
 
   //get data
@@ -41,6 +38,7 @@ function Search() {
     setSearchResult(filteredProducts);
   };
 
+  console.log(isExpanded)
   // on type product sugestion
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -52,37 +50,48 @@ function Search() {
     setSearchResult(filteredProducts);
   };
 
+   const w = 48
   return (
-    <div className="flex flex-col items-center border rounded p-2">
-      <div className = "mr-2">
-      <FontAwesomeIcon icon={faSearch} className="mr-5" />
-    </div>
-      <input
-      ref={inputRef}
-        type="text"
-        value={searchQuery}
-        onChange={handleInputChange}
-        placeholder="enter product name"
-        className="bg-transparent h-full text-xl w-full ml-1 focus:outline-none"
-      />
-
-      
-      <div  className=" w-full bg-white flex flex-col shadow-md border-2 mt-4 max-h max-h-48 overflow-scroll">
-      {searchResult.length > 0 ? (
-        searchResult.map((e) => (
-          <Link  key={e.id} to={`/cart/${e.id}`}>
-            <div>
+    <div className="flex  w-40">
+      <div className= {`group w-${w}  h-8 flex cursor-pointer py-1 px-4  rounded bg-white justify-center items-center transition-all`}>
+        <input
+          ref={inputRef}
+          type="text"
+          value={searchQuery}
+          onChange={handleInputChange}
+          placeholder=""
+          className=" outline-none border h-full  bg-transparent font-thin"
+        />
+        <Link  onClick={()=> {setIsExpanded(!isExpanded)
+          console.log(isExpanded)
+        }}>
+          <FontAwesomeIcon icon={faSearch} className="" />
+        </Link>
+      </div>
+{/* 
+     {
+      <div className=" w-full bg-white flex flex-col shadow-md border-2 mt-4 max-h max-h-48 overflow-scroll">
+        
+       {
+          searchResult.length > 0 ?(
+            searchResult.map((e)=>(
+              <div>
               <h2>{e.title}</h2>
               <p>{e.desciption}</p>
             </div>
-          </Link>
-        ))
-      ) : (
-        <p>No Products found</p>
-      )}
-    </div>
-    </div>
-  );
-}
+            ))
+          ): (
+            <p>Products not found</p>
+          )
+       }
 
+
+        </div>
+     } */}
+      
+     </div>
+  )
+
+
+}
 export default Search;

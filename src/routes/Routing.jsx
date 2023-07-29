@@ -12,8 +12,14 @@ function Routing() {
       <Route>
         <Route path="/" element={<LandingPage />} />
         <Route path="/shop" element={<Shop />} />
-        {/* <Route  path="/cart" element={<Cart />}/> */}
-        <Route  path="/cart/:id" element={<Cart />}/>
+        <Route  path="/cart" element={<Cart />}/>
+        <Route  path="/cart/:id" element={<Cart />}>
+            <Route index element={<Description/>}/>
+            <Route path="description" element={<Description/>}/>
+            <Route path ="additional" element={<Additional/>}/>
+           
+
+        </Route>
 
           {/* <Route path="/description" element={<Description />} />
           <Route path="/aditional" element={<Additional />} /> */}

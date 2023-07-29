@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+function Description(props) {
+  
 
-function Description() {
   return (
-    <div>Description</div>
-  )
+  <div className="  px-10 py-3 text-left">
+    
+      <p>Dexcription</p>
+    
+    </div>);
 }
 
-export default Description
+export default Description;
