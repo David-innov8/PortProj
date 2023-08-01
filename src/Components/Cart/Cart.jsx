@@ -5,16 +5,23 @@ import { Link, useParams, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import StarRatings from "react-star-ratings";
-import axios from "axios";
 import RelatedPrdt from "./RelatedPrdt";
+import { useQuery } from "react-query";
+import { fetchProductById } from "../Auth/Api";
 
 function Cart() {
+
+  // for the counter and liked
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
   const Decrease = () => {
-    setCount(count - 1);
-    console.log(count);
+    if (count <= 0) {
+      setCount(0);
+    } else {
+      setCount(count - 1);
+      console.log(count);
+    }
   };
 
   const Increase = () => {
@@ -27,37 +34,29 @@ function Cart() {
     setIsLiked(!isLiked);
   };
 
+  // using params with react query
+
   const { id } = useParams();
+  const { data, isLoading, isError } = useQuery(["products", id], () =>
+    fetchProductById(id)
+  );
 
-  const [pdrt, setPrdt] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get(`https://api.escuelajs.co/api/v1/products/${id}`)
-      .then((res) => {
-        setPrdt(res.data);
-        setLoading(false);
-        console.log("product loaded", res.data);
-      })
-
-      .catch((err) => {
-        // console.error(`error petching products`, err);
-        setLoading(false);
-      });
-  }, [id]);
-
-  // .then((res) => {
-  //   setProduct(res.data);
-  //   setLoading(false);
-  //   console.log(("product loaded", res.data));
-  // })
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  // if (!pdrt) {
-  //   return <div>Does not exist</div>;
-  // }
+  if (isError) {
+    return <div>Error fetching data</div>;
+  }
+
+  if (!data) {
+    return <div>Product not Found</div>;
+  }
+  if (isLoading) {
+    return <div>Loading..fgdggd.</div>;
+  }
+
+  
   return (
     <section className=" ">
       <Navbar />
@@ -65,34 +64,34 @@ function Cart() {
       <div className=" px-9 flex-1 flex h-100v w-full text-[#978E8E]">
         <div className="left h-full flex w-1/2">
           <div className="w-1/3 h-full flex flex-col justify-between ">
-           
-            {
-              pdrt.images.map((e,index)=>(
-                <div className=" aspect-h-1">
-              <img key={index} src={e} alt="" className="object-contain  w-full h-full" />
-            </div>
-              ))
-            }
-
+            {data.images.map((e, index) => (
+              <div className=" aspect-h-1">
+                <img
+                  key={index}
+                  src={e}
+                  alt=""
+                  className="object-contain  w-full h-full"
+                />
+              </div>
+            ))}
           </div>
 
           <div className=" ml-2">
             <img
               class="object-cover object-bottom object-right px-3 w-full h-full"
-              src={pdrt.category.image}
+              src={data.category.image}
               alt=""
             />
           </div>
-        
         </div>
 
         <div className="right w-1/2 px-2 ">
           <div className=" ">
             <h1 className="mb-4 text-3xl font-bold font-sans text-black">
-              {pdrt.title}
+              {data.title}
             </h1>
             <StarRatings
-              rating={pdrt.rating}
+              rating={data.rating}
               starRatedColor="grey"
               starEmptyColor="grey"
               starDimension="20px"
@@ -100,12 +99,12 @@ function Cart() {
             />
             <div className="flex items-center my-4 text-black">
               <span className="line-through text-base  mr-3">
-                {pdrt.price + 100}$
+                {data.price + 100}$
               </span>
-              <p className="text-lg font-bold">{pdrt.price}</p>
+              <p className="text-lg font-bold">{data.price}</p>
             </div>
 
-            <p className="w-96 text-lg font-normal ">{pdrt.description}</p>
+            <p className="w-96 text-lg font-normal ">{data.description}</p>
 
             <div className="btn flex my-6 w-96 justify-between">
               <div className=" ` border-black border w-40 h-14 flex px-2 justify-between items-center">
@@ -133,7 +132,7 @@ function Cart() {
             </div>
 
             <p className="my-2">Sku: 02</p>
-            <p>Category: {pdrt.category.name}</p>
+            <p>Category: {data.category.name}</p>
             <p className="my-2 ">tag: sofa clean</p>
 
             <nav className="w-full  flex px-7 justify-between text-xl text-black font-normal">

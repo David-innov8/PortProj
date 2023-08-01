@@ -1,4 +1,6 @@
 import React from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { fetchdata } from "../Components/Auth/Api";
 import Footer from "../Components/Common/Footer";
 import Navbar from "../Components/Common/Navbar";
 import Search from "../Components/Common/Search";
@@ -12,8 +14,24 @@ import Sect4 from "../Components/General_cmpt/Sect4";
 import Sect5 from "../Components/General_cmpt/Sect5";
 import Testimonials from "../Components/General_cmpt/Testimonials";
 
+
+
 function LandingPage() {
-  return (
+
+  const queryClient = useQueryClient();
+  const { data, isLoading , isError} = useQuery('products' , fetchdata)
+
+  if(isLoading){
+    return <div>Loading....</div>
+  }
+
+  if(isError){
+    return <div>Error......</div>
+  }
+
+  queryClient.setQueryData('products', data)
+
+  return ( 
     <div>
       <Home />
 

@@ -4,18 +4,9 @@ import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 
-const fetchdata = async () => {
-  // axios.get("").then((res) => {
-  //   console.log(res.data);
-  //   return res.data;
-  // });
-
-    const response = await axios.get('https://api.escuelajs.co/api/v1/products')
-    return response.data
-        
-};
 function ApiTest() {
-  const { isLoading, data } = useQuery("products", fetchdata);
+
+  const { isLoading, data } = useQuery('products');
 
   return (
     <section>
