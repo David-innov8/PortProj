@@ -1,22 +1,28 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Routing from "./routes/Routing";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { Provider } from "react-redux";
+import store from './Redux/Store/store'
 
-const queryClient = new QueryClient()
+// import { QueryClientProvider, QueryClient } from "react-query";
+
+// const queryClient = new QueryClient()
 
 
 function App() {
   return (
+    <Provider store={store}>
 
-    <QueryClientProvider client={queryClient}>
+    
+    
     <Router>
       <div>
         {/* <LandingPage/> */}
         <Routing />
       </div>
     </Router>
-    </QueryClientProvider>
+  
+    </Provider>
   )
 }
 

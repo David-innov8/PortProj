@@ -30,6 +30,7 @@ function Testimonials() {
     fade: true,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+    currentSlide: ''
   };
 
   const List = [

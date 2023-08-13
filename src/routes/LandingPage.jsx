@@ -1,5 +1,10 @@
 import React from "react";
-import { useQuery, useQueryClient } from "react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 import { fetchdata } from "../Components/Auth/Api";
 import Footer from "../Components/Common/Footer";
 import Navbar from "../Components/Common/Navbar";
@@ -13,37 +18,35 @@ import Sect3 from "../Components/General_cmpt/Sect3";
 import Sect4 from "../Components/General_cmpt/Sect4";
 import Sect5 from "../Components/General_cmpt/Sect5";
 import Testimonials from "../Components/General_cmpt/Testimonials";
-
-
+import Products from "../Components/General_cmpt/Products";
 
 function LandingPage() {
+  // const queryClient = useQueryClient();
+  // const { data, isLoading, isError } = useQuery("products", fetchdata);
 
-  const queryClient = useQueryClient();
-  const { data, isLoading , isError} = useQuery('products' , fetchdata)
+  // if (isLoading) {
+  //   return <div>Loading....</div>;
+  // }
 
-  if(isLoading){
-    return <div>Loading....</div>
-  }
+  // if (isError) {
+  //   return <div>Error......</div>;
+  // }
 
-  if(isError){
-    return <div>Error......</div>
-  }
+  // queryClient.setQueryData("products", data);
 
-  queryClient.setQueryData('products', data)
-
-  return ( 
+  return (
     <div>
       <Home />
 
-      <ProductsOfTheWeek />
+      {/* <ProductsOfTheWeek />
       <Sect3 />
       <Sect4 />
       <OrderNow />
       <MidFooter />
       <Sect5 />
-      <Testimonials />
-      <ApiTest/>
-
+      <Testimonials /> */}
+      {/* <ApiTest /> */}
+      <Products/>
       <Footer />
     </div>
   );

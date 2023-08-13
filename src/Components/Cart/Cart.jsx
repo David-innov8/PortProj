@@ -6,15 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import StarRatings from "react-star-ratings";
 import RelatedPrdt from "./RelatedPrdt";
-import { useQuery } from "react-query";
-import { fetchProductById } from "../Auth/Api";
+// import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../../Redux/Reducers/productSlice";
+import { selectData } from "../../Redux/Reducers/fetchSlice";
 
 function Cart() {
-
   // for the counter and liked
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-
+  // const [products, setProduct] = useState(null)
   const Decrease = () => {
     if (count <= 0) {
       setCount(0);
@@ -37,26 +38,46 @@ function Cart() {
   // using params with react query
 
   const { id } = useParams();
-  const { data, isLoading, isError } = useQuery(["products", id], () =>
-    fetchProductById(id)
-  );
+  const selectedProducts = useSelector(selectData);
+  console.log(selectedProducts)
+  const products = selectedProducts.find((pro) => pro.id === parseInt(id));
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (!selectedProducts) {
+    return <p>Loading...</p>;
   }
 
-  if (isError) {
-    return <div>Error fetching data</div>;
-  }
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       const productData = await fetchProductById(id);
+  //       setProduct(productData);
+  //     } catch (error) {
+  //       // Handle error
+  //     }
+  //   };
 
-  if (!data) {
-    return <div>Product not Found</div>;
-  }
-  if (isLoading) {
-    return <div>Loading..fgdggd.</div>;
-  }
+  //   fetchProduct();
+  // }, [id]);
 
-  
+  // const { data:products, isLoading, isError } = useQuery(["products", id], () =>
+  //   fetchProductById(id)
+  // );
+
+  // // if (isLoading) {
+  // //   return <div>Loading...</div>;
+  // // }
+
+  // if (isError) {
+  //   return <div>Error fetching data</div>;
+  // }
+
+  // if (!products) {
+  //   return <div>Product not Found</div>;
+  // }
+  // if (isLoading) {
+  //   return <div>Loading..fgdggd.</div>;
+  // }
+
   return (
     <section className=" ">
       <Navbar />
@@ -64,7 +85,7 @@ function Cart() {
       <div className=" px-9 flex-1 flex h-100v w-full text-[#978E8E]">
         <div className="left h-full flex w-1/2">
           <div className="w-1/3 h-full flex flex-col justify-between ">
-            {data.images.map((e, index) => (
+            {products.images.map((e, index) => (
               <div className=" aspect-h-1">
                 <img
                   key={index}
@@ -79,7 +100,7 @@ function Cart() {
           <div className=" ml-2">
             <img
               class="object-cover object-bottom object-right px-3 w-full h-full"
-              src={data.category.image}
+              src={products.images[0]}
               alt=""
             />
           </div>
@@ -88,10 +109,10 @@ function Cart() {
         <div className="right w-1/2 px-2 ">
           <div className=" ">
             <h1 className="mb-4 text-3xl font-bold font-sans text-black">
-              {data.title}
+              {products.title}
             </h1>
             <StarRatings
-              rating={data.rating}
+              rating={products.rating}
               starRatedColor="grey"
               starEmptyColor="grey"
               starDimension="20px"
@@ -99,12 +120,12 @@ function Cart() {
             />
             <div className="flex items-center my-4 text-black">
               <span className="line-through text-base  mr-3">
-                {data.price + 100}$
+                {products.price + 100}$
               </span>
-              <p className="text-lg font-bold">{data.price}</p>
+              <p className="text-lg font-bold">{products.price}</p>
             </div>
 
-            <p className="w-96 text-lg font-normal ">{data.description}</p>
+            <p className="w-96 text-lg font-normal ">{products.description}</p>
 
             <div className="btn flex my-6 w-96 justify-between">
               <div className=" ` border-black border w-40 h-14 flex px-2 justify-between items-center">
@@ -132,7 +153,7 @@ function Cart() {
             </div>
 
             <p className="my-2">Sku: 02</p>
-            <p>Category: {data.category.name}</p>
+            <p>Category: {products.category.name}</p>
             <p className="my-2 ">tag: sofa clean</p>
 
             <nav className="w-full  flex px-7 justify-between text-xl text-black font-normal">

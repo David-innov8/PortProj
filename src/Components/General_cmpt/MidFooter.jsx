@@ -8,21 +8,25 @@ import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 const MidFooter = () => {
   const List = [
     {
+      id: 1,
       img: faClock,
       title: "Shop online",
       p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat dolor odio odio",
     },
     {
+      id: 2,
       img: faShoppingBag,
       title: "Free shipping",
       p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat dolor odio odio",
     },
     {
+      id: 3,
       img: faWallet,
       title: "Return policy",
       p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat dolor odio odio",
     },
     {
+      id: 4,
       img: faDollarSign,
       title: "PAYMENT",
       p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat dolor odio odio",
@@ -32,7 +36,7 @@ const MidFooter = () => {
   return (
     <div className="h-30v  grid grid-cols-4 mx-auto gap-10 place-items-center px-20 ">
       {List.map((item) => (
-        <div key={item.p} className="">
+        <div key={item.id} className="">
           <div className="flex items-center mb-3 ">
             <FontAwesomeIcon icon={item.img} className="h-7  " />
             <h1 className="pl-5 text-2xl font-bold">{item.title}</h1>
