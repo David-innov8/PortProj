@@ -8,9 +8,11 @@ const initialState = {
   count: 0,
 };
 
+
+
 export const fetchProduct = createAsyncThunk("api/fetchProduct", async () => {
   const response = await fetch(
-    "https://api.escuelajs.co/api/v1/products?offset=0&limit=10"
+    "https://api.escuelajs.co/api/v1/products"
   );
   const data = await response.json();
 

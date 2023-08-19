@@ -38,15 +38,13 @@ function LandingPage() {
     <div>
       <Home />
 
-      {/* <ProductsOfTheWeek />
+      <ProductsOfTheWeek />
       <Sect3 />
       <Sect4 />
       <OrderNow />
       <MidFooter />
       <Sect5 />
-      <Testimonials /> */}
-      {/* <ApiTest /> */}
-      <Products/>
+      <Testimonials /> 
       <Footer />
     </div>
   );
